@@ -16,6 +16,7 @@ class Aoe < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "31aa2fe72a99db65237104460835cddf816943b10cd66df2d080b2475ce0b964"
   end
 
+  depends_on "node" => :build
   depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "openssl@3"
@@ -26,7 +27,7 @@ class Aoe < Formula
   end
 
   def install
-    system "cargo", "install", *std_cargo_args
+    system "cargo", "install", *std_cargo_args, "--features", "serve"
     generate_completions_from_executable(bin/"aoe", "completion", shells: [:bash, :zsh, :fish, :pwsh])
   end
 
